@@ -1,4 +1,4 @@
-(ns poli-auth.handler
+(ns poli-auth.server
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
             [poli-auth.handlers.auth :as handlers]
@@ -14,6 +14,6 @@
 
 (def app
   (-> app-routes
-  	  (wrap-json-body {:keywords? true})
-	  (wrap-json-response)
-  	  (wrap-defaults api-defaults)))
+      (wrap-json-body {:keywords? true})
+      (wrap-json-response)
+      (wrap-defaults api-defaults)))

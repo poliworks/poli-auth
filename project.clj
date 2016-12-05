@@ -7,7 +7,7 @@
                  [ring/ring-json "0.4.0"]
                  [ring/ring-defaults "0.2.1"]]
   :plugins [[lein-ring "0.9.7"]]
-  :ring {:handler poli-auth.handler/app}
+  :ring {:handler poli-auth.server/app}
   :profiles
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
                         [ring/ring-mock "0.3.0"]]}})
