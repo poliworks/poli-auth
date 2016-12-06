@@ -18,4 +18,4 @@
       (wrap-defaults api-defaults)))
 
 (defn setup []
-  (d-u/install-schema))
+  (d-u/install-schema!))

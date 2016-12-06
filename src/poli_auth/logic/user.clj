@@ -17,7 +17,7 @@
 (s/defn create-user :- m/User
   [user-data :- m/User]
   (let [prepared-user (prepare-user user-data)]
-    (db/insert-user prepared-user)
+    (db/insert-user! prepared-user)
     (pass->token prepared-user)))
 
 (s/defn login-user :- m/User

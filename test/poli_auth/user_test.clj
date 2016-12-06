@@ -5,7 +5,7 @@
 
 
 (deftest create-user
-  (db/install-schema)
+  (db/install-schema!)
   (testing "we can create a new user"
     (is (= (nil? (l-u/create-user {:user/name "Teste" :user/email "user@email.com" :user/id 1 :user/password "123456"})) false)))
   (testing "we can login the created user"

@@ -8,7 +8,7 @@
            :user/hashed-password "1234"})
 
 (deftest create-user
-  (db/install-schema)
+  (db/install-schema!)
   (testing "we can create and login an user"
-    (db/insert-user user)
+    (db/insert-user! user)
     (is (= "fulano@mail.com" (:user/email (db/get-user-by-email "fulano@mail.com"))))))

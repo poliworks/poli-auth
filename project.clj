@@ -9,9 +9,10 @@
                  [prismatic/schema "1.1.3"]
                  [crypto-password "0.2.0"]
                  [ring/ring-defaults "0.2.1"]
+                 [io.rkn/conformity "0.4.0"]
                  [clj-jwt "0.1.1"]]
   :plugins [[lein-ring "0.9.7"]]
-  :resources-paths ["res/"]
+  :resources-paths ["res"]
   :ring {:handler poli-auth.server/app
          :init poli-auth.server/setup}
   :profiles
