@@ -7,9 +7,8 @@
             [ring.middleware.defaults :refer [wrap-defaults api-defaults]]))
 
 (defroutes app-routes
-  (GET "/" [] h-auth/render-main)
   (POST "/login" request (h-auth/login request))
-  (POST "/register" [] "Registre-se aqui")
+  (POST "/register" request (h-auth/register request))
   (route/not-found "Not Found"))
 
 (def app

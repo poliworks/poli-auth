@@ -6,7 +6,7 @@
 (def prod-uri "datomic:free://localhost:4334/poli-auth")
 (def test-uri "datomic:mem://test")
 
-(def datomic-uri test-uri)
+(def datomic-uri test-uri)                                  ;; Change here the datomic URI
 
 (d/create-database datomic-uri)
 (def conn (d/connect datomic-uri))
