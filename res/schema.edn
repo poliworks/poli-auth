@@ -1,0 +1,32 @@
+;; User schema
+[
+
+ {:db/id                 #db/id [:db.part/db]
+  :db/ident              :user/name
+  :db/valueType          :db.type/string
+  :db/cardinality        :db.cardinality/one
+  :db/doc                "User name"
+  :db.install/_attribute :db.part/db}
+
+ {:db/id                 #db/id [:db.part/db]
+  :db/ident              :user/email
+  :db/valueType          :db.type/string
+  :db/cardinality        :db.cardinality/one
+  :db/doc                "User email"
+  :db.install/_attribute :db.part/db}
+
+ {:db/id                 #db/id [:db.part/db]
+  :db/ident              :user/hashed-password
+  :db/valueType          :db.type/string
+  :db/cardinality        :db.cardinality/one
+  :db/doc                "User's hashed password"
+  :db.install/_attribute :db.part/db}
+
+ {:db/id                 #db/id [:db.part/db]
+  :db/ident              :user/id
+  :db/valueType          :db.type/long
+  :db/cardinality        :db.cardinality/one
+  :db/doc                "User id"
+  :db.install/_attribute :db.part/db}
+
+ ]

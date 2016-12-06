@@ -2,6 +2,7 @@
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
             [poli-auth.handlers.auth :as h-auth]
+            [poli-auth.db.users :as d-u]
             [ring.middleware.json :refer [wrap-json-body wrap-json-response]]
             [ring.middleware.defaults :refer [wrap-defaults api-defaults]]))
 
@@ -16,3 +17,6 @@
       (wrap-json-body {:keywords? true})
       (wrap-json-response)
       (wrap-defaults api-defaults)))
+
+(defn setup []
+  (d-u/install-schema))
