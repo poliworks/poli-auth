@@ -5,22 +5,25 @@
             [poli-auth.model.user :as m]
             [schema.core :as s]))
 
-(defn- prepare-user [user-data]
-  (-> (->> user-data :user/password crp/encrypt (assoc user-data :user/hashed-password))
+(s/defn ^:private hash-user :- m/User
+  [user :- m/User]
+  (-> (->> user :user/password crp/encrypt (assoc user :user/hashed-password))
       (dissoc :user/password)))
 
-(defn- pass->token [user]
+(s/defn ^:private add-token :- m/User
+  [user :- m/User]
   (-> (assoc user :user/token (token/create-token user))
       (dissoc :user/hashed-password)
       (dissoc :user/password)))
 
 (s/defn create-user :- m/User
-  [user-data :- m/User]
-  (let [prepared-user (prepare-user user-data)]
-    (db/insert-user! prepared-user)
-    (pass->token prepared-user)))
+  [user :- m/User]
+  (let [hashed-user (hash-user user)]
+    (db/insert-user! hashed-user)
+    (add-token hashed-user)))
 
 (s/defn login-user :- m/User
   [email :- s/Str password :- s/Str]
   (let [user (db/get-user-by-email email)]
-    (and (crp/check password (:user/hashed-password user)) (pass->token user))))
+    (when (crp/check password (:user/hashed-password user))
+      (add-token user))))

@@ -7,10 +7,6 @@
             [poli-auth.model.user :as m]
             [schema.core :as s]))
 
-(defn debug [val]
-  (println val)
-  val)
-
 (defn model->external [user]
   (->> (map (fn [[k v]] [(name k) v]) user)
        (into {})))
@@ -22,10 +18,10 @@
 (defn login [{:keys [body] :as request}]
   {:status 200
    :body   (-> (l-u/login-user (:email body) (:password body))
-               model->external)})
+               (model->external))})
 
 (defn register [{:keys [body] :as request}]
-  {:body   (-> (external->model body)
+  {:status 200
+   :body   (-> (external->model body)
                (l-u/create-user)
-               (model->external))
-   :status 200})
+               (model->external))})

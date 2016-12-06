@@ -13,7 +13,7 @@
   {:iss "poli-auth"
    :exp (plus (now) (days 1))
    :iat (now)
-   :user-id (:id user)})
+   :user-id (:user/id user)})
 
 (s/defn create-token :- s/Str
   [user :- m/User]
@@ -22,4 +22,5 @@
 (s/defn decode-token :- (s/maybe (s/pred map?))
   [str-token :- s/Str]
   (let [decoded-token (-> str-token str->jwt)]
-    (and (verify decoded-token :RS256 rsa-public-key) (:claims decoded-token))))
+    (when (verify decoded-token :RS256 rsa-public-key)
+      (:claims decoded-token))))
