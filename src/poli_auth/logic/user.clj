@@ -9,7 +9,7 @@
   (-> (->> user-data :user/password crp/encrypt (assoc user-data :user/hashed-password))
       (dissoc :user/password)))
 
-(s/defn create-user :- s/Str
+(s/defn create-user :- m/User
   [user-data :- m/User]
   (let [prepared-user (prepare-user user-data)]
     (db/insert-user prepared-user)

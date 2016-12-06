@@ -3,7 +3,11 @@
             [poli-auth.model.user :as m]
             [schema.core :as s]))
 
-(def datomic-uri "datomic:free://localhost:4334/poli-auth")
+(def prod-uri "datomic:free://localhost:4334/poli-auth")
+(def test-uri "datomic:mem://test")
+
+(def datomic-uri test-uri)
+
 (d/create-database datomic-uri)
 (def conn (d/connect datomic-uri))
 
@@ -15,10 +19,11 @@
 
 (s/defn get-user-by-email :- (s/maybe m/User)
   [email :- s/Str]
-  (->> (d/q '[:find ?u
-              :where [?u :user/email email]] (d/db conn))
+  (->> (d/q '[:find  ?u
+              :in $ ?email
+              :where [$ ?u :user/email ?email]] (d/db conn) email)
        ffirst
-       (d/pull (d/db conn) [*])))
+       (d/pull (d/db conn) '[*])))
 
 (s/defn insert-user [user :- m/User]
-  @(d/transact conn (assoc user :db/id (d/tempid :db.part/user))))
+  @(d/transact conn [(assoc user :db/id (d/tempid :db.part/user))]))

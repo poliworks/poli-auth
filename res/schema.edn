@@ -25,6 +25,7 @@
  {:db/id                 #db/id [:db.part/db]
   :db/ident              :user/id
   :db/valueType          :db.type/long
+  :db/unique             :db.unique/value
   :db/cardinality        :db.cardinality/one
   :db/doc                "User id"
   :db.install/_attribute :db.part/db}
