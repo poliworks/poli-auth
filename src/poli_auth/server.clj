@@ -17,5 +17,5 @@
       (wrap-json-response)
       (wrap-defaults api-defaults)))
 
-(defn setup []
+(defn bootstrap! []
   (d-u/install-schema!))

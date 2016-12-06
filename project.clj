@@ -14,7 +14,7 @@
   :plugins [[lein-ring "0.9.7"]]
   :resources-paths ["res"]
   :ring {:handler poli-auth.server/app
-         :init poli-auth.server/setup}
+         :init poli-auth.server/bootstrap!}
   :profiles
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
                         [ring/ring-mock "0.3.0"]]}})
