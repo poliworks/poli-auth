@@ -13,6 +13,3 @@
           decoded-token (token/decode-token token)]
       (is (= (:user-id decoded-token) 1))
       (is (= (:iss decoded-token) "poli-auth")))))
-
-
-

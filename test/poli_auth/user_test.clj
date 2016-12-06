@@ -3,7 +3,6 @@
             [poli-auth.logic.user :as l-u]
             [poli-auth.db.users :as db]))
 
-
 (deftest create-user
   (db/install-schema!)
   (testing "we can create a new user"
