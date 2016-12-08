@@ -13,7 +13,8 @@
 (def conn (d/connect datomic-uri))
 
 (defn install-schema! []
-  (c/ensure-conforms conn (-> "res/schema.edn" slurp read-string)))
+  (let [schema (c/read-resource "schema.edn")]
+    (c/ensure-conforms conn schema)))
 
 (s/defn get-user-by-email :- (s/maybe m/User)
   [email :- s/Str]

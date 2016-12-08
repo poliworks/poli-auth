@@ -12,7 +12,8 @@
        (into {})))
 
 (defn external->model [user]
-  (->> (map (fn [[k v]] [(keyword "user" (name k)) v]) user)
+  (->> (dissoc user :userType)
+       (map (fn [[k v]] [(keyword "user" (name k)) v]))
        (into {})))
 
 (defn login [{:keys [body] :as request}]
@@ -21,6 +22,7 @@
                (model->external))})
 
 (defn register [{:keys [body] :as request}]
+  (println request)
   {:status 200
    :body   (-> (external->model body)
                (l-u/create-user)

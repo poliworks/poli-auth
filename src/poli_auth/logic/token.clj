@@ -5,8 +5,8 @@
             [clj-time.core :refer [now plus days]]
             [poli-auth.model.user :as m]))
 
-(def rsa-private-key (private-key "res/jwtKey.key"))
-(def rsa-public-key (public-key "res/jwtKey.key.pub"))
+(def rsa-private-key (private-key "resources/jwtKey.key"))
+(def rsa-public-key (public-key "resources/jwtKey.key.pub"))
 
 (s/defn ^:private create-claim :- (s/pred map?)
   [user :- m/User]

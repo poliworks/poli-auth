@@ -12,7 +12,7 @@
                  [io.rkn/conformity "0.4.0"]
                  [clj-jwt "0.1.1"]]
   :plugins [[lein-ring "0.9.7"]]
-  :resources-paths ["res"]
+  :resources-paths ["resources"]
   :ring {:handler poli-auth.server/app
          :init poli-auth.server/bootstrap!}
   :profiles
