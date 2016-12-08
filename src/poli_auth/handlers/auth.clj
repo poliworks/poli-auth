@@ -8,8 +8,10 @@
             [schema.core :as s]))
 
 (defn model->external [user]
-  (->> (map (fn [[k v]] [(name k) v]) user)
-       (into {})))
+  (if (nil? user)
+    {:status 403 :body {:error "Incorrect email or password"}}
+    {:status 200 :body (->> (map (fn [[k v]] [(name k) v]) user)
+                            (into {}))}))
 
 (defn external->model [user]
   (->> (dissoc user :userType)
@@ -17,13 +19,10 @@
        (into {})))
 
 (defn login [{:keys [body] :as request}]
-  {:status 200
-   :body   (-> (l-u/login-user (:email body) (:password body))
-               (model->external))})
+  (-> (l-u/login-user (:email body) (:password body))
+      (model->external)))
 
 (defn register [{:keys [body] :as request}]
-  (println request)
-  {:status 200
-   :body   (-> (external->model body)
-               (l-u/create-user)
-               (model->external))})
+  (-> (external->model body)
+      (l-u/create-user)
+      (model->external)))

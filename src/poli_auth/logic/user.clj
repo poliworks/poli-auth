@@ -25,5 +25,5 @@
 (s/defn login-user :- m/User
   [email :- s/Str password :- s/Str]
   (let [user (db/get-user-by-email email)]
-    (when (crp/check password (:user/hashed-password user))
+    (when (and (some? (:user/hashed-password user)) (crp/check password (:user/hashed-password user)))
       (add-token user))))
