@@ -1,8 +1,10 @@
 (ns poli-auth.model.user
-  (:require [schema.core :as s]))
+  (:require [schema.core :as s]
+            [poli-auth.model.common :refer :all]))
 
-(def User {(s/required-key :user/id)              s/Int
-           (s/required-key :user/email)           s/Str
-           (s/optional-key :user/hashed-password) s/Str
-           (s/optional-key :user/password)        s/Str
-           (s/optional-key :user/token)           s/Str})
+(def user-skeleton {:user/id              {:schema s/Uuid :required true}
+                    :user/email           {:schema s/Str :required true}
+                    :user/hashed-password {:schema s/Str :required false}
+                    :user/password        {:schema s/Str :required false}
+                    :user/token           {:schema s/Str :required false}})
+(def User (gen-schema user-skeleton))
