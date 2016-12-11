@@ -14,7 +14,7 @@
                             (into {}))}))
 
 (defn external->model [user]
-  (->> (dissoc user :userType)
+  (->> (dissoc user :user-type)
        (map (fn [[k v]] [(keyword "user" (name k)) v]))
        (into {})))
 

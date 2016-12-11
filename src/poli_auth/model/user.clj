@@ -4,6 +4,7 @@
 
 (def user-skeleton {:user/id              {:schema s/Uuid :required true}
                     :user/email           {:schema s/Str :required true}
+                    :user/user-type       {:schema s/Keyword :required true}
                     :user/hashed-password {:schema s/Str :required false}
                     :user/password        {:schema s/Str :required false}
                     :user/token           {:schema s/Str :required false}})
