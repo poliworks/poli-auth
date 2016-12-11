@@ -12,7 +12,7 @@
 
 (s/defn ^:private add-token :- m/User
   [user :- m/User]
-  (-> (assoc user :user/token (token/create-token user))
+  (-> (assoc user :user/token (token/create-token (update user :user/id str)))
       (dissoc :user/hashed-password)
       (dissoc :user/password)))
 

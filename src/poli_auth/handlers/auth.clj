@@ -14,7 +14,7 @@
                             (into {}))}))
 
 (defn external->model [user]
-  (->> (dissoc user :user-type)
+  (->> user
        (map (fn [[k v]] [(keyword "user" (name k)) v]))
        (into {})))
 
@@ -24,5 +24,6 @@
 
 (defn register [{:keys [body] :as request}]
   (-> (external->model body)
+      (m/coerce-to-user)
       (l-u/create-user)
       (model->external)))
