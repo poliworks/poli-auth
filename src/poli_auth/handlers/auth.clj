@@ -24,6 +24,7 @@
 
 (defn register [{:keys [body] :as request}]
   (-> (external->model body)
+      (select-keys [:user/password :user/email :user/type :user/id])
       (m/coerce-to-user)
       (l-u/create-user)
       (model->external)))

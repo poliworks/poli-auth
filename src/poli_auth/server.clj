@@ -7,9 +7,13 @@
             [ring.middleware.defaults :refer [wrap-defaults api-defaults]]
             [poli-auth.logic.token :as token]))
 
+(defn debug [v]
+  (println v)
+  v)
+
 (defroutes app-routes
   (POST "/login" request (h-auth/login request))
-  (POST "/register" request (h-auth/register request))
+  (POST "/register" request (h-auth/register (debug request)))
   (GET  "/pub-key" [] {:body token/rsa-public-key :status 200})
   (route/not-found "Not Found"))
 
