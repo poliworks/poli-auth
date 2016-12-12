@@ -10,9 +10,9 @@ elif [[ $1 == "setup" ]]; then
 	docker rm poli-auth-datomic || echo 'No container to remove...'
 	echo "Creating new container now..."
 	if [[ $2 != "" ]]; then
-		docker run --name poli-auth-datomic -p 4334-4336:4334-4336 -e ALT_HOST=$2 -d akiel/datomic-free:0.9.5407;
+		docker run --name poli-auth-datomic -p 4334-4336:4334-4336 -e ALT_HOST=$2 -d leoiacovini/datomic:095407;
 	else
-		docker run --name poli-auth-datomic -p 4334-4336:4334-4336 -d akiel/datomic-free:0.9.5407;
+		docker run --name poli-auth-datomic -p 4334-4336:4334-4336 -d leoiacovini/datomic:095407;
 	fi
 	echo "Container created succesfully"
 else
