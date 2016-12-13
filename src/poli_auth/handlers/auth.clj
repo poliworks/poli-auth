@@ -8,23 +8,26 @@
             [schema.core :as s]))
 
 (defn model->external [user]
-  (if (nil? user)
-    {:status 403 :body {:error "Incorrect email or password"}}
-    {:status 200 :body (->> (map (fn [[k v]] [(name k) v]) user)
-                            (into {}))}))
+  (->> (map (fn [[k v]] [(name k) v]) user)
+       (into {})))
 
 (defn external->model [user]
   (->> user
        (map (fn [[k v]] [(keyword "user" (name k)) v]))
        (into {})))
 
+(defn get-response-or-error [user error-code error-message]
+  (if (nil? user)
+    {:status error-code :body {:error error-message}}
+    {:status 200 :body (model->external user)}))
+
 (defn login [{:keys [body] :as request}]
   (-> (l-u/login-user (:email body) (:password body))
-      (model->external)))
+      (get-response-or-error 403 "Invalid login")))
 
 (defn register [{:keys [body] :as request}]
   (-> (external->model body)
       (select-keys [:user/password :user/email :user/type :user/id])
       (m/coerce-to-user)
       (l-u/create-user)
-      (model->external)))
+      (get-response-or-error 400 "user with same email already exists")))

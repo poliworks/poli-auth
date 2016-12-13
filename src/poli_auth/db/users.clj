@@ -25,4 +25,6 @@
        (d/pull (d/db conn) '[*])))
 
 (s/defn insert-user! [user :- m/User]
-  @(d/transact conn [(assoc user :db/id (d/tempid :db.part/user))]))
+  (try
+    @(d/transact conn [(assoc user :db/id (d/tempid :db.part/user))])
+    (catch Exception e nil)))

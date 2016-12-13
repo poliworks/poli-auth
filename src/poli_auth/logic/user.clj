@@ -19,8 +19,8 @@
 (s/defn create-user :- m/User
   [user :- m/User]
   (let [hashed-user (hash-user user)]
-    (db/insert-user! hashed-user)
-    (add-token hashed-user)))
+    (when (db/insert-user! hashed-user)
+      (add-token hashed-user))))
 
 (s/defn login-user :- m/User
   [email :- s/Str password :- s/Str]
